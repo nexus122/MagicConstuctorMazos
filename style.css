@@ -73,8 +73,8 @@ button{
 
 .general{
     display: flex;            
-    box-sizing: border-box;    
-
+    box-sizing: border-box;
+    padding: 1em;
 }
 .sideMenu{
     display: flex;
@@ -87,6 +87,7 @@ button{
     background-color: black;
     color: white;
     height: 10%;
+    border-radius: 1em;
 }
 
 .delete{
