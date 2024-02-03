@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MTG - Deck Builder">
+    <meta name="keywords" content="MTG, Magic, Deck, Builder">
+    <!-- Favicon -->
+    <link rel="icon" href="./favicon.ico">    
+    <title>MTG - Deck Builder</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="nav">
+        <div class="searcher">
+            <!-- Nombre de criatura-->
+            <input id="name" type="text" placeholder="Nombre">
+            <!-- Tipo de criatura -->
+            <input type="text" name="type" id="type" placeholder="Tipo">
+            <!-- Checkbox para colores -->
+            <div id="colores">Colores</div>
+            <div class="submenu">
+                <span>
+                    <input type="checkbox" id="white" name="white" value="W">
+                    <label for="W">White</label>
+                </span>
+                <span>
+                    <input type="checkbox" id="blue" name="blue" value="U">
+                    <label for="U">Blue</label>
+                </span>
+                <span>
+                    <input type="checkbox" id="black" name="black" value="B">
+                    <label for="B">Black</label>
+                </span>
+                <span>
+                    <input type="checkbox" id="red" name="red" value="R">
+                    <label for="R">Red</label>
+                </span>
+                <span>
+                    <input type="checkbox" id="green" name="green" value="G">
+                    <label for="G">Green</label>
+                </span>
+            </div>
+            <button id="buscar">Search</button>
+        </div>
+        <button class="mazo">Mazo</button>
+    </div>
+
+    <h1>Cartas</h1>
+    <div class="general">
+        <div class="sideMenu">
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <button class="descargar">Descargar</button>
+            <button class="copy">Copiar</button>
+            <button class="delete">Borrar</button>
+        </div>
+        <div id="cards"></div>
+    </div>
+
+    <div class="navegacion">
+        <button id="previous">Previous Page</button>
+        <button id="next">Next Page</button>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./src/Cards.js"></script>
+    <script>
+        let cards = new Cards();
+        cards.drawCards();
+
+        document.getElementById('next').addEventListener('click', () => {
+            cards.nextPage();
+            console.log(cards.page);
+        });
+        document.getElementById('previous').addEventListener('click', () => {
+            cards.previousPage();
+            console.log(cards.page);
+        });
+        document.getElementById('buscar').addEventListener('click', () => {
+            cards.page = 1;
+            cards.searchCard();
+        });
+        document.querySelectorAll('input[type=checkbox]').forEach((checkbox) => {
+            checkbox.addEventListener('change', () => {
+                cards.searchCard();
+            });
+        });
+        document.querySelector('.delete').addEventListener('click', () => {
+            cards.deleteMazo();
+        });
+        document.querySelector('.descargar').addEventListener('click', () => {
+            descargarTXT();
+        });
+        function descargarTXT() {
+            const contenido = document.querySelector('.sideMenu textarea').value;
+
+            const blob = new Blob([contenido], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = window.URL.createObjectURL(blob);
+            a.download = 'mazo.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+
+</html>
