@@ -157,4 +157,20 @@ class Cards {
               },
         }).showToast();
     }
+
+    MazoChangeTextarea(value){
+        // Modificamos el mazo para ajustarlo al contenido de la textarea, si se reduce el numero de copias de una carta se quitan del array        
+        let array = value.split("\n");
+        this.mazo = [];
+        array.forEach(element => {
+            let number = element.slice(0, 1);
+            let card = element.slice(2);
+            for (let i = 0; i < number; i++) {
+                console.log(card);
+                this.mazo.push(card);
+            }
+        });
+        this.drawMazo();
+        this.Tost("Mazo actualizado!", "blue");
+    }
 }

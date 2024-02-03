@@ -77,29 +77,41 @@
             cards.nextPage();
             console.log(cards.page);
         });
+
         document.getElementById('previous').addEventListener('click', () => {
             cards.previousPage();
             console.log(cards.page);
         });
+
         document.getElementById('buscar').addEventListener('click', () => {
             cards.page = 1;
             cards.searchCard();
             scrollTop();
         });
+
         document.querySelectorAll('input[type=checkbox]').forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
                 cards.searchCard();
             });
         });
+
         document.querySelector('.delete').addEventListener('click', () => {
             cards.deleteMazo();
         });
+
         document.querySelector('.descargar').addEventListener('click', () => {
             descargarTXT();
         });
+
         document.querySelector('.copy').addEventListener('click', () => {
             cards.copiarMazo();
         });
+
+        document.querySelector('.sideMenu textarea').addEventListener('change', (card) => {
+            let text = document.querySelector('.sideMenu textarea').value;            
+            cards.MazoChangeTextarea(text);
+        });
+
         function descargarTXT() {
             const contenido = document.querySelector('.sideMenu textarea').value;
 
