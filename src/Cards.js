@@ -131,7 +131,8 @@ class Cards {
             return acc;
         }, {});
         let result = Object.entries(mazo).map(card => `${card[1]} ${card[0]}`).join('\n');
-        document.querySelector('.sideMenu textarea').value = result;           
+        document.querySelector('.sideMenu textarea').value = result;
+        document.querySelector('.total').html = `Total: ${this.mazo.length} cartas`;
     }
 
     deleteMazo() {
