@@ -1,6 +1,5 @@
 # Magic: The Gathering Card Viewer
-
-![Project Logo](link-to-your-logo.png)
+![551shots_so](https://github.com/nexus122/MagicConstuctorMazos/assets/22988550/033e4253-c41d-4fa3-a822-cff79c83edd9)
 
 ## Descripción
 
@@ -13,11 +12,6 @@ Este proyecto es un visor de cartas para Magic: The Gathering, que utiliza la AP
 - Visualización de detalles de cada carta, incluyendo imagen, nombre, tipo y descripción.
 - Construcción y visualización de un mazo personalizado.
 - Copiar y pegar mazos fácilmente.
-
-## Capturas de Pantalla
-
-![Screenshot 1](screenshots/screenshot1.png)
-![Screenshot 2](screenshots/screenshot2.png)
 
 ## Instalación
 
