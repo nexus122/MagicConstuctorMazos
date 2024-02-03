@@ -1,43 +1,19 @@
-class Cards {
+class Cards {    
     constructor() {
         this.page = 1;
-        this.url = 'https://api.magicthegathering.io/v1/cards?language=spanish';
-        this.mazo = [];
-        this.isLoading = false;
+        this.baseURL = 'https://api.magicthegathering.io/v1/';
+        this.url = this.baseURL+'cards?&language=spanish';        
+        this.mazo = this.localStorageGet();             
         this.drawMazo();
     }
 
-    // Getter para obtener el mazo
-    get mazo() {
-        return this._mazo;
-    }
-
-    // Setter para actualizar el mazo
-    set mazo(newMazo) {
-        this._mazo = newMazo;
-        this.drawMazo(); // Llamamos a drawMazo cada vez que se actualiza el mazo
-    }
-
     async obtainCards() {
-        try {
+        try {            
             const response = await fetch(this.url);
-            const data = await response.json();
-            return data.cards || [];
+            const data = await response.json();            
+            console.log(data);
+            return data.cards || [];            
         } catch (error) {
-            console.error('Error fetching cards:', error);
-            return [];
-        }
-    }
-
-    async obtainCards() {
-        try {
-            this.isLoading = true; // Nuevo: activar loading
-            const response = await fetch(this.url);
-            const data = await response.json();
-            this.isLoading = false; // Nuevo: desactivar loading
-            return data.cards || [];
-        } catch (error) {
-            this.isLoading = false; // Nuevo: desactivar loading en caso de error
             console.error('Error fetching cards:', error);
             return [];
         }
@@ -47,64 +23,45 @@ class Cards {
         const cardsContainer = document.getElementById('cards');
         const data = await this.obtainCards();
 
-        this.isLoading = true;
-        
-        console.log(data.length);
-        if(data.length === 0) {
-            this.isLoading = false;            
-        }
-
-
         if (this.isLoading) {
-            // Nuevo: Mostrar loading mientras se carga la información
-            cardsContainer.innerHTML = '<div class="loading">Cargando...</div>';            
+            cardsContainer.innerHTML = '<div class="loading">Cargando...</div>';
         }
-    
-        const html = data.reduce((acc, card) => {
+
+        const html = this.generateCardHTML(data);
+        cardsContainer.innerHTML = html;
+
+        document.querySelectorAll('.card img').forEach(card => card.addEventListener('click', () => this.addCard(card.parentElement.id)));
+    }
+
+    generateCardHTML(data) {
+        return data.reduce((acc, card) => {
             if (card.imageUrl) {
                 let searchTerm = card;
-    
+
                 if (card.foreignNames && card.foreignNames.length > 0) {
                     searchTerm = card.foreignNames.find(name => name.language === 'Spanish') || card;
                 }
-    
+
                 acc += `<div class="card" id="${card.id}">
                             <img src="${searchTerm.imageUrl}" alt="${card.name}">
                             <h2>${searchTerm.name}</h2>
                             <p>${searchTerm.type}</p>
                             <p>${searchTerm.text}</p>                                                    
                         </div>`;
-            }            
+            }
             return acc;
         }, '');
-    
-        cardsContainer.innerHTML = html;
-        document.querySelectorAll('.card img').forEach(card => card.addEventListener('click', () => this.addCard(card.parentElement.id)));
-        this.isLoading = false;
-    }
-    
-
-    addCard(id) {
-        const card = document.getElementById(id);
-        const cardData = card.querySelector('h2').textContent;
-        
-        console.log(cardData);
-        this.mazo.push(cardData);
-        this.drawMazo();
-        this.Tost(`Se ha añadido: ${cardData}`, "green");
     }
 
     async nextPage() {
         this.page++;
         await this.searchCard();
-        await this.drawCards();
     }
 
     async previousPage() {
         if (this.page > 1) {
             this.page--;
             await this.searchCard();
-            await this.drawCards();
         }
     }
 
@@ -112,13 +69,26 @@ class Cards {
         const search = document.getElementById('name').value;
         const type = document.getElementById('type').value;
         const colors = Array.from(document.querySelectorAll(".submenu input:checked")).map(input => input.value);
+        const formato = document.getElementById('formato').value;
+        console.log(formato);
 
-        this.url = 'https://api.magicthegathering.io/v1/cards?language=spanish';
+        this.url = this.url;
         if (search) this.url += `&name=${search}`;
         if (colors.length > 0) this.url += `&colors=${colors.join(',')}`;
         if (type) this.url += `&type=${type}`;
+        if (formato) this.url += `&gameFormat=${formato}`;
         this.url += `&page=${this.page}`;
         await this.drawCards();
+    }
+
+    addCard(id) {
+        const card = document.getElementById(id);
+        const cardData = card.querySelector('h2').textContent;
+
+        this.mazo.push(cardData);
+        this.localStorageSave();
+        this.drawMazo();
+        this.Tost(`Se ha añadido: ${cardData}`, "green");
     }
 
     drawMazo() {
@@ -137,6 +107,8 @@ class Cards {
 
     deleteMazo() {
         this.mazo = [];
+        this.localStorageSave();
+        this.drawMazo();
         this.Tost("Mazo eliminado!", "red");
     }
 
@@ -154,23 +126,31 @@ class Cards {
             duration: 3000,
             style: {
                 background: color,
-              },
+            },
         }).showToast();
     }
 
-    MazoChangeTextarea(value){
-        // Modificamos el mazo para ajustarlo al contenido de la textarea, si se reduce el numero de copias de una carta se quitan del array        
+    MazoChangeTextarea(value) {
         let array = value.split("\n");
         this.mazo = [];
         array.forEach(element => {
             let number = element.slice(0, 1);
             let card = element.slice(2);
             for (let i = 0; i < number; i++) {
-                console.log(card);
                 this.mazo.push(card);
             }
         });
         this.drawMazo();
+        this.localStorageSave();
         this.Tost("Mazo actualizado!", "blue");
+    }
+
+    localStorageGet() {
+        let mazo = localStorage.getItem('mazo');
+        return mazo ? this.mazo = JSON.parse(mazo) : [];
+    }
+    
+    localStorageSave() {
+        localStorage.setItem('mazo', JSON.stringify(this.mazo));
     }
 }

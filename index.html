@@ -7,7 +7,7 @@
     <meta name="description" content="MTG - Deck Builder">
     <meta name="keywords" content="MTG, Magic, Deck, Builder">
     <!-- Favicon -->
-    <link rel="icon" href="./favicon.ico">    
+    <link rel="icon" href="./favicon.ico">
     <title>MTG - Deck Builder</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./style.css">
@@ -22,7 +22,30 @@
             <!-- Nombre de criatura-->
             <input id="name" type="text" placeholder="Nombre">
             <!-- Tipo de criatura -->
-            <input type="text" name="type" id="type" placeholder="Tipo">
+            <input type="text" name="type" id="type" placeholder="Tipo de criatura">
+            <select name="formato" id="formato">
+                <option value="Alchemy">Alchemy</option>
+                <option value="Brawl">Brawl</option>
+                <option value="Commander">Commander</option>
+                <option value="Duel">Duel</option>
+                <option value="Explorer">Explorer</option>
+                <option value="Future">Future</option>
+                <option value="Gladiator">Gladiator</option>
+                <option value="Historic">Historic</option>
+                <option value="Historicbrawl">Historicbrawl</option>
+                <option value="Legacy">Legacy</option>
+                <option value="Modern">Modern</option>
+                <option value="Oathbreaker">Oathbreaker</option>
+                <option value="Oldschool">Oldschool</option>
+                <option value="Pauper">Pauper</option>
+                <option value="Paupercommander">Paupercommander</option>
+                <option value="Penny">Penny</option>
+                <option value="Pioneer">Pioneer</option>
+                <option value="Predh">Predh</option>
+                <option value="Premodern">Premodern</option>
+                <option value="Standard">Standard</option>
+                <option value="Vintage">Vintage</option>
+            </select>
             <!-- Checkbox para colores -->
             <div id="colores">Colores</div>
             <div class="submenu">
@@ -108,7 +131,7 @@
         });
 
         document.querySelector('.sideMenu textarea').addEventListener('change', (card) => {
-            let text = document.querySelector('.sideMenu textarea').value;            
+            let text = document.querySelector('.sideMenu textarea').value;
             cards.MazoChangeTextarea(text);
         });
 
