@@ -25,23 +25,23 @@
             <div class="submenu">
                 <span>
                     <input type="checkbox" id="white" name="white" value="W">
-                    <label for="W">White</label>
+                    <label for="white">White</label>
                 </span>
                 <span>
                     <input type="checkbox" id="blue" name="blue" value="U">
-                    <label for="U">Blue</label>
+                    <label for="blue">Blue</label>
                 </span>
                 <span>
                     <input type="checkbox" id="black" name="black" value="B">
-                    <label for="B">Black</label>
+                    <label for="black">Black</label>
                 </span>
                 <span>
                     <input type="checkbox" id="red" name="red" value="R">
-                    <label for="R">Red</label>
+                    <label for="red">Red</label>
                 </span>
                 <span>
                     <input type="checkbox" id="green" name="green" value="G">
-                    <label for="G">Green</label>
+                    <label for="green">Green</label>
                 </span>
             </div>
             <button id="buscar">Search</button>
@@ -80,6 +80,7 @@
         document.getElementById('buscar').addEventListener('click', () => {
             cards.page = 1;
             cards.searchCard();
+            scrollTop();
         });
         document.querySelectorAll('input[type=checkbox]').forEach((checkbox) => {
             checkbox.addEventListener('change', () => {
@@ -105,6 +106,10 @@
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+        }
+
+        function scrollTop() {
+            window.scrollTo(0, 0);
         }
     </script>
 </body>

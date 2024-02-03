@@ -3,6 +3,7 @@ class Cards {
         this.page = 1;
         this.url = 'https://api.magicthegathering.io/v1/cards?language=spanish';
         this.mazo = [];
+        this.isLoading = false;
         this.drawMazo();
     }
 
@@ -28,15 +29,43 @@ class Cards {
         }
     }
 
+    async obtainCards() {
+        try {
+            this.isLoading = true; // Nuevo: activar loading
+            const response = await fetch(this.url);
+            const data = await response.json();
+            this.isLoading = false; // Nuevo: desactivar loading
+            return data.cards || [];
+        } catch (error) {
+            this.isLoading = false; // Nuevo: desactivar loading en caso de error
+            console.error('Error fetching cards:', error);
+            return [];
+        }
+    }
+
     async drawCards() {
-        const data = await this.obtainCards();        
+        const cardsContainer = document.getElementById('cards');
+        const data = await this.obtainCards();
+
+        this.isLoading = true;
+        
+        console.log(data.length);
+        if(data.length === 0) {
+            this.isLoading = false;            
+        }
+
+
+        if (this.isLoading) {
+            // Nuevo: Mostrar loading mientras se carga la información
+            cardsContainer.innerHTML = '<div class="loading">Cargando...</div>';            
+        }
     
         const html = data.reduce((acc, card) => {
             if (card.imageUrl) {
                 let searchTerm = card;
     
                 if (card.foreignNames && card.foreignNames.length > 0) {
-                    searchTerm = card.foreignNames.find(name => name.language === 'Spanish') || card.foreignNames[0];
+                    searchTerm = card.foreignNames.find(name => name.language === 'Spanish') || card;
                 }
     
                 acc += `<div class="card" id="${card.id}">
@@ -45,13 +74,15 @@ class Cards {
                             <p>${searchTerm.type}</p>
                             <p>${searchTerm.text}</p>                                                    
                         </div>`;
-            }
-            return acc;                        
+            }            
+            return acc;
         }, '');
     
-        document.getElementById('cards').innerHTML = html;
+        cardsContainer.innerHTML = html;
         document.querySelectorAll('.card img').forEach(card => card.addEventListener('click', () => this.addCard(card.parentElement.id)));
+        this.isLoading = false;
     }
+    
 
     addCard(id) {
         const card = document.getElementById(id);
@@ -91,8 +122,6 @@ class Cards {
     }
 
     drawMazo() {
-        // Quiero recorrer el mazo, si hay dos cartas iguales o mas quiero que ponga el numero delante de la carta
-        // Ejemplo: 3x Llanowar Elves
         const mazo = this.mazo.reduce((acc, card) => {
             if (acc[card]) {
                 acc[card]++;
@@ -104,6 +133,7 @@ class Cards {
         let result = Object.entries(mazo).map(card => `${card[1]} ${card[0]}`).join('\n');
         document.querySelector('.sideMenu textarea').value = result;           
     }
+
     deleteMazo() {
         this.mazo = [];
         this.Tost("Mazo eliminado!", "red");
