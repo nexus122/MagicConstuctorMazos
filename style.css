@@ -79,7 +79,7 @@ button{
 .sideMenu{
     display: flex;
     position: sticky;
-    top: 75px;
+    top: calc(75px + 1em);
     flex-direction: column;
     gap: 1em;
     padding: 1em;    

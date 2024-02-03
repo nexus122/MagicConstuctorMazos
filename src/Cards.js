@@ -109,6 +109,14 @@ class Cards {
         this.Tost("Mazo eliminado!", "red");
     }
 
+    copiarMazo() {
+        const copyText = document.querySelector('.sideMenu textarea');
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        this.Tost("Mazo copiado!", "blue");
+    }
+
     Tost(msg, color = "green") {
         Toastify({
             text: `${msg}`,

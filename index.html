@@ -46,7 +46,6 @@
             </div>
             <button id="buscar">Search</button>
         </div>
-        <button class="mazo">Mazo</button>
     </div>
 
     <h1>Cartas</h1>
@@ -61,8 +60,8 @@
     </div>
 
     <div class="navegacion">
-        <button id="previous">Previous Page</button>
-        <button id="next">Next Page</button>
+        <button id="previous">Anterior</button>
+        <button id="next">Siguiente</button>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="./src/Cards.js"></script>
@@ -92,6 +91,9 @@
         });
         document.querySelector('.descargar').addEventListener('click', () => {
             descargarTXT();
+        });
+        document.querySelector('.copy').addEventListener('click', () => {
+            cards.copiarMazo();
         });
         function descargarTXT() {
             const contenido = document.querySelector('.sideMenu textarea').value;
