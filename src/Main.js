@@ -33,11 +33,13 @@ class Main {
     }
 
     async nextPage() {
-        await this.searchForm.nextPage(this.page);
+        this.page++;
+        await this.searchForm.searchCard(this.page);
     }
 
     async previousPage() {
-        await this.searchForm.previousPage(this.page);
+        this.page = this.page > 1 ? this.page - 1 : 1;
+        await this.searchForm.searchCard(this.page);
     }
 
     deleteDeck() {
