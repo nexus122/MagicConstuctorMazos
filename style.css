@@ -129,3 +129,9 @@ input {
     align-items: center;
     opacity: 0.8;
 }
+
+label{    
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}

@@ -10,8 +10,7 @@ class Cards {
     async obtainCards() {
         try {            
             const response = await fetch(this.url);
-            const data = await response.json();            
-            console.log(data);
+            const data = await response.json();                        
             return data.cards || [];            
         } catch (error) {
             console.error('Error fetching cards:', error);
@@ -69,8 +68,7 @@ class Cards {
         const search = document.getElementById('name').value;
         const type = document.getElementById('type').value;
         const colors = Array.from(document.querySelectorAll(".submenu input:checked")).map(input => input.value);
-        const formato = document.getElementById('formato').value;
-        console.log(formato);
+        const formato = document.getElementById('formato').value;        
 
         this.url = this.url;
         if (search) this.url += `&name=${search}`;

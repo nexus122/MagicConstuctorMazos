@@ -9,14 +9,12 @@
     <!-- Favicon -->
     <link rel="icon" href="./favicon.ico">
     <title>MTG - Deck Builder</title>
+    <link href="//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 
-<body>
-    <!--<div class="loading">
-        <img src="https://i.gifer.com/ZKZg.gif" alt="loading">
-    </div>-->
+<body>    
     <div class="nav">
         <div class="searcher">
             <!-- Nombre de criatura-->
@@ -43,31 +41,30 @@
                 <option value="Pioneer">Pioneer</option>
                 <option value="Predh">Predh</option>
                 <option value="Premodern">Premodern</option>
-                <option value="Standard">Standard</option>
+                <option value="Standard" selected>Standard</option>
                 <option value="Vintage">Vintage</option>
             </select>
-            <!-- Checkbox para colores -->
-            <div id="colores">Colores</div>
+            <!-- Checkbox para colores -->            
             <div class="submenu">
                 <span>
                     <input type="checkbox" id="white" name="white" value="W">
-                    <label for="white">White</label>
+                    <label for="white"><i class="ms ms-w"></i> White</label>
                 </span>
                 <span>
                     <input type="checkbox" id="blue" name="blue" value="U">
-                    <label for="blue">Blue</label>
+                    <label for="blue"><i class="ms ms-u"></i> Blue</label>
                 </span>
                 <span>
                     <input type="checkbox" id="black" name="black" value="B">
-                    <label for="black">Black</label>
+                    <label for="black"><i class="ms ms-b"></i> Black</label>
                 </span>
                 <span>
                     <input type="checkbox" id="red" name="red" value="R">
-                    <label for="red">Red</label>
+                    <label for="red"><i class="ms ms-r"></i> Red</label>
                 </span>
                 <span>
                     <input type="checkbox" id="green" name="green" value="G">
-                    <label for="green">Green</label>
+                    <label for="green"><i class="ms ms-g"></i> Green</label>
                 </span>
             </div>
             <button id="buscar">Search</button>
@@ -77,80 +74,20 @@
     <h1>Cartas</h1>
     <div class="general">
         <div class="sideMenu">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <span class="total"></span>
-            <button class="descargar">Descargar</button>
-            <button class="copy">Copiar</button>
-            <button class="delete">Borrar</button>
+            <textarea name="" id="deckTextarea" cols="30" rows="10"></textarea>
+            <span class="total"></span>            
+            <button id="copyDeckBtn">Copiar</button>
+            <button id="deleteDeckBtn">Borrar</button>
         </div>
         <div id="cards"></div>
     </div>
 
     <div class="navegacion">
-        <button id="previous">Anterior</button>
-        <button id="next">Siguiente</button>
+        <button id="prevPageBtn">Anterior</button>
+        <button id="nextPageBtn">Siguiente</button>
     </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="./src/Cards.js"></script>
-    <script>
-        let cards = new Cards();
-        cards.drawCards();
-
-        document.getElementById('next').addEventListener('click', () => {
-            cards.nextPage();
-            console.log(cards.page);
-        });
-
-        document.getElementById('previous').addEventListener('click', () => {
-            cards.previousPage();
-            console.log(cards.page);
-        });
-
-        document.getElementById('buscar').addEventListener('click', () => {
-            cards.page = 1;
-            cards.searchCard();
-            scrollTop();
-        });
-
-        document.querySelectorAll('input[type=checkbox]').forEach((checkbox) => {
-            checkbox.addEventListener('change', () => {
-                cards.searchCard();
-            });
-        });
-
-        document.querySelector('.delete').addEventListener('click', () => {
-            cards.deleteMazo();
-        });
-
-        document.querySelector('.descargar').addEventListener('click', () => {
-            descargarTXT();
-        });
-
-        document.querySelector('.copy').addEventListener('click', () => {
-            cards.copiarMazo();
-        });
-
-        document.querySelector('.sideMenu textarea').addEventListener('change', (card) => {
-            let text = document.querySelector('.sideMenu textarea').value;
-            cards.MazoChangeTextarea(text);
-        });
-
-        function descargarTXT() {
-            const contenido = document.querySelector('.sideMenu textarea').value;
-
-            const blob = new Blob([contenido], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = window.URL.createObjectURL(blob);
-            a.download = 'mazo.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        function scrollTop() {
-            window.scrollTo(0, 0);
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="module" src="./src/Main.js"></script>
 </body>
 
 </html>
