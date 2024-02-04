@@ -7,8 +7,7 @@ class DeckManager {
         cardData = document.querySelector(`#${cardData} h2`).textContent;
         this.mazo.push(cardData);
         this.textAreaUpdate();
-        this.localStorageSave();
-        this.Tost(`Se ha añadido: ${cardData}`, "green");
+        this.localStorageSave();                
     }
 
     deleteDeck() {
@@ -40,7 +39,7 @@ class DeckManager {
         }, {});
 
         let result = Object.entries(mazo).map(card => `${card[1]} ${card[0]}`).join('\n');
-
+        document.querySelector('.total').innerHTML = `Total: ${this.mazo.length} / 100`;
         document.querySelector('.sideMenu textarea').value = result;
     }
 

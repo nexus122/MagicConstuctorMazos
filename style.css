@@ -135,3 +135,7 @@ label{
     text-align: center;
     cursor: pointer;
 }
+
+.padding{
+    padding: 1em;
+}
