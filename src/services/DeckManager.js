@@ -21,8 +21,8 @@ class DeckManager {
         let array = value.split("\n");
         this.mazo = [];
         return array.forEach(element => {
-            let number = element.slice(0, 1);
-            let card = element.slice(2);
+            let number = parseInt(element);
+            let card = element.slice((""+number).length+1);
             for (let i = 0; i < number; i++) {
                 this.mazo.push(card);
             }

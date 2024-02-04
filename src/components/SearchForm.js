@@ -14,13 +14,15 @@ class SearchForm {
         const formato = document.getElementById('formato').value;
         const limit = 100;
         
-        let url = `https://api.magicthegathering.io/v1/cards?&language=spanish`;
-        if (search) url += `&name=${search}`;
+        let url = `https://api.magicthegathering.io/v1/cards?`;
+        if (search) url += `&name=${search.toLowerCase()}`;
         if (colors.length > 0) url += `&colors=${colors.join(',')}`;
-        if (type) url += `&type=${type}`;
-        if (formato) url += `&gameFormat=${formato}`;
+        if (type) url += `&type=${type.toLowerCase()}`;
+        //if (formato) url += `&gameFormat=${formato.toLowerCase()}`;
         if (page) url += `&page=${page}`;
         if (limit) url += `&pageSize=${limit}`;
+        url += '&language=spanish'
+        url = url.replace('?&', '?');    
 
         const data = await this.cardsService.obtainCards(url);
         const html = this.cardRenderer.generateCardHTML(data);

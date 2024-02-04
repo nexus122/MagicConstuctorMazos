@@ -19,7 +19,7 @@
         transition: 0.5s;
     }
 }
-.navegacion{
+footer{
     display: flex;
     width: 100%;
     justify-content: center;    
