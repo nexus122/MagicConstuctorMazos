@@ -11,10 +11,12 @@ class CardRenderer {
                 }
 
                 acc += `<div class="card" id="id_${temp}">
-                            <img src="${searchTerm.imageUrl}" alt="${card.name}">
-                            <h2>${searchTerm.name}</h2>
-                            <p>${searchTerm.type}</p>
-                            <p>${searchTerm.text}</p>                                                    
+                            <img class="card-img-top" src="${searchTerm.imageUrl}" alt="${card.name}">     
+                            <div class="card-body">
+                                <h2 class="card-title">${searchTerm.name}</h2>
+                                <span class="badge bg-primary">${searchTerm.type}</span>                                
+                                <p class="card-text">${searchTerm.text}</p>                                                    
+                            </div>
                         </div>`;
             }
             return acc;

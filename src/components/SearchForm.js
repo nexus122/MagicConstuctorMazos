@@ -11,7 +11,7 @@ class SearchForm {
         const search = document.getElementById('name').value;
         const type = document.getElementById('type').value;
         const colors = Array.from(document.querySelectorAll(".submenu input:checked")).map(input => input.value);
-        const formato = document.getElementById('formato').value;
+        // const formato = document.getElementById('formato').value;
         const limit = 100;
         
         let url = `https://api.magicthegathering.io/v1/cards?`;
