@@ -22,74 +22,62 @@
             <!-- Nombre de criatura-->
             <input id="name" type="text" placeholder="Nombre">
             <!-- Tipo de criatura -->
-            <input type="text" name="type" id="type" placeholder="Tipo de criatura">
-            <!--<select name="formato" id="formato">
-                <option value="Alchemy">Alchemy</option>
-                <option value="Brawl">Brawl</option>
-                <option value="Commander">Commander</option>
-                <option value="Duel">Duel</option>
-                <option value="Explorer">Explorer</option>
-                <option value="Future">Future</option>
-                <option value="Gladiator">Gladiator</option>
-                <option value="Historic">Historic</option>
-                <option value="Historicbrawl">Historicbrawl</option>
-                <option value="Legacy">Legacy</option>
-                <option value="Modern">Modern</option>
-                <option value="Oathbreaker">Oathbreaker</option>
-                <option value="Oldschool">Oldschool</option>
-                <option value="Pauper">Pauper</option>
-                <option value="Paupercommander">Paupercommander</option>
-                <option value="Penny">Penny</option>
-                <option value="Pioneer">Pioneer</option>
-                <option value="Predh">Predh</option>
-                <option value="Premodern">Premodern</option>
-                <option value="Standard" selected>Standard</option>
-                <option value="Vintage">Vintage</option>
-            </select>-->
+            <input type="text" name="type" id="type" placeholder="Tipo de carta">
+            
             <!-- Checkbox para colores -->
-            <div class="dropdown"> 
-                <button class="btn btn-success dropdown-toggle"
-                        type="button" 
-                        id="multiSelectDropdown"
-                        data-bs-toggle="dropdown" 
-                        aria-expanded="false"> 
-                    Mana 
-                </button> 
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="multiSelectDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Mana
+                </button>
                 <ul class="dropdown-menu submenu padding">
                     <li><input type="checkbox" id="white" name="white" value="W">
-                        <label for="white"><i class="ms ms-w"></i> White</label></li>
+                        <label for="white"><i class="ms ms-w"></i> White</label>
+                    </li>
                     <li><input type="checkbox" id="blue" name="blue" value="U">
-                        <label for="blue"><i class="ms ms-u"></i> Blue</label></li>
+                        <label for="blue"><i class="ms ms-u"></i> Blue</label>
+                    </li>
                     <li><input type="checkbox" id="black" name="black" value="B">
-                        <label for="black"><i class="ms ms-b"></i> Black</label></li>
+                        <label for="black"><i class="ms ms-b"></i> Black</label>
+                    </li>
                     <li><input type="checkbox" id="red" name="red" value="R">
-                        <label for="red"><i class="ms ms-r"></i> Red</label></li>
+                        <label for="red"><i class="ms ms-r"></i> Red</label>
+                    </li>
                     <li><input type="checkbox" id="green" name="green" value="G">
-                        <label for="green"><i class="ms ms-g"></i> Green</label></li>
+                        <label for="green"><i class="ms ms-g"></i> Green</label>
+                    </li>
                 </ul>
-            </div>          
-            
+            </div>
+
             <button id="buscar" class="btn btn-primary">Search</button>
         </div>
     </nav>
     <article>
-        <h1 class="padding">Cartas</h1>
+        <div class="padding">
+            <h1 class="">Cartas</h1>
+            <p>Puedes imprimirlas en: <a href="https://mtg-print.com/es">Aqui</a></p>
+        </div>
     </article>
     <div class="general">
         <div class="sideMenu">
             <textarea name="" id="deckTextarea" cols="30" rows="10"></textarea>
             <span class="total"></span>
-            <button id="copyDeckBtn">Copiar</button>
-            <button id="deleteDeckBtn">Borrar</button>
+            <button class="btn btn-primary" id="copyDeckBtn">Copiar</button>
+            <button class="btn btn-danger" id="deleteDeckBtn">Borrar</button>
         </div>
         <div id="cards"></div>
     </div>
 
-    <footer>
-        <div class="input-group center">
-            <button class="btn btn-primary" id="prevPageBtn">Anterior</button>
-            <button class="btn btn-primary" id="nextPageBtn">Siguiente</button>
-        </div>
+    <footer class="navbar sticky navbar-dark bg-dark text-light">
+        <nav aria-label="Navegación">
+            <ul class="pagination">
+              <li class="page-item"><a class="page-link" href="#" id="prevPageBtn">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#" id="nextPageBtn">Next</a></li>
+            </ul>
+          </nav>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

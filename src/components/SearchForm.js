@@ -5,7 +5,7 @@ class SearchForm {
         this.deckManager = deckManager;
         this.deckRenderer = deckRenderer;        
     }
-
+    
     async searchCard(page = 1) {    
         console.log('Buscando...', page);    
         const search = document.getElementById('name').value;
