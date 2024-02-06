@@ -131,3 +131,10 @@ label{
     top: 0;
     z-index: 100;
 }
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
