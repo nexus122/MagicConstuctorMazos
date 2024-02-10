@@ -57,11 +57,11 @@ class Main {
 
     mazoChangeTextarea(value) {
         this.deckManager.updateDeck(value);
-        this.deckRenderer.drawDeck(this.deckManager.getDeck());
+        this.deckRenderer.drawDeck(this.deckManager.getDeck());        
         this.Tost("Deck actualizado!", "blue");
     }
 
-    downloadDeckInTxt(target) {
+    downloadDeckInTxt() {
         let deckName = document.getElementById('deckName').value;
         let element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(document.querySelector('.sideMenu textarea').value));
