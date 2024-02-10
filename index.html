@@ -30,7 +30,7 @@
                     data-bs-toggle="dropdown" aria-expanded="false">
                     Mana
                 </button>
-                <ul class="dropdown-menu submenu padding">
+                <ul class="dropdown-menu submenu padding" id="mana">
                     <li><input type="checkbox" id="white" name="white" value="W">
                         <label for="white"><i class="ms ms-w"></i> White</label>
                     </li>
@@ -49,13 +49,34 @@
                 </ul>
             </div>
 
+            <div class="dropdown">
+                <button class="btn btn-success dropdown-toggle" type="button" id="multiSelectDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Rareza
+                </button>
+                <ul class="dropdown-menu submenu padding" id="rarity">
+                    <li><input type="checkbox" id="common" name="common" value="common">
+                        <label for="common">Common</label>
+                    </li>
+                    <li><input type="checkbox" id="uncommon" name="uncommon" value="uncommon">
+                        <label for="uncommon">Uncommon</label>
+                    </li>
+                    <li><input type="checkbox" id="rare" name="rare" value="rare">
+                        <label for="rare">Rare</label>
+                    </li>
+                    <li><input type="checkbox" id="mythic" name="mythic" value="mythic">
+                        <label for="mythic">Mythic</label>
+                    </li>
+                </ul>
+            </div>
+
             <button id="buscar" class="btn btn-primary">Search</button>
         </div>
     </nav>
     <article>
         <div class="padding">
             <h1 class="">Cartas</h1>
-            <p>Puedes imprimirlas en: <a href="https://mtg-print.com/es">Aqui</a></p>
+            <p>Puedes imprimirlas en: <a target="_blank" href="https://mtg-print.com/es">Aqui</a></p>
         </div>
     </article>
     <div class="general">

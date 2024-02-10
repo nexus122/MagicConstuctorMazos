@@ -3,7 +3,7 @@ class SearchForm {
         this.cardsService = cardsService;
         this.cardRenderer = cardRenderer;
         this.deckManager = deckManager;
-        this.deckRenderer = deckRenderer;        
+        this.deckRenderer = deckRenderer;
     }
     
     async searchCard(page = 1) {    
@@ -11,7 +11,8 @@ class SearchForm {
         document.getElementById('cards').innerHTML = '<div class="loader"></div>';
         const search = document.getElementById('name').value;
         const type = document.getElementById('type').value;
-        const colors = Array.from(document.querySelectorAll(".submenu input:checked")).map(input => input.value);
+        const colors = Array.from(document.querySelectorAll("#mana input:checked")).map(input => input.value);
+        const rarity = Array.from(document.querySelectorAll("#rarity input:checked")).map(input => input.value);
         // const formato = document.getElementById('formato').value;
         const limit = 100;
         
@@ -20,6 +21,7 @@ class SearchForm {
         if (colors.length > 0) url += `&colors=${colors.join(',')}`;
         if (type) url += `&type=${type.toLowerCase()}`;
         //if (formato) url += `&gameFormat=${formato.toLowerCase()}`;
+        if (rarity.length > 0) url += `&rarity=${rarity.join(',')}`;
         if (page) url += `&page=${page}`;
         if (limit) url += `&pageSize=${limit}`;
         url += '&language=spanish'
