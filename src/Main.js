@@ -4,17 +4,14 @@ import DeckManager from './services/DeckManager.js';
 import DeckRenderer from './components/DeckRenderer.js';
 import SearchForm from './components/SearchForm.js';
 
-class Main {
-    types = ["Artifact", "Battle", "Conspiracy", "Creature", "Dragon", "Elemental", "Enchantment", "Goblin", "Hero", "instant", "Instant", "Jaguar", "Knights", "Land", "Phenomenon", "Plane", "Planeswalker", "Scheme", "Sorcery", "Stickers", "Summon", "Tribal", "Universewalker", "Vanguard", "Wolf"];
+class Main {    
     constructor() {
         this.cardsService = new CardsService(this);
         this.cardRenderer = new CardRenderer();
         this.deckManager = new DeckManager(this);
         this.deckRenderer = new DeckRenderer();
         this.searchForm = new SearchForm(this.cardsService, this.cardRenderer, this.deckManager, this.deckRenderer, this);
-
         this.page = 1;
-
         this.init();
     }
 
@@ -25,10 +22,12 @@ class Main {
         document.getElementById('prevPageBtn').addEventListener('click', () => this.previousPage());
         document.getElementById('deleteDeckBtn').addEventListener('click', () => this.deleteDeck());
         document.getElementById('copyDeckBtn').addEventListener('click', () => this.copyDeck());
+        document.getElementById('downloadDeck').addEventListener('click', (event) => this.downloadDeckInTxt(event.target.value));
         document.getElementById('deckTextarea').addEventListener('change', (event) => this.mazoChangeTextarea(event.target.value));        
         document.getElementById('buscar').addEventListener('click', () => {
-            this.page = 1;
+            this.page = 1;         
             this.searchForm.searchCard();
+            window.scrollTo(0, 0);
         });
     }
 
@@ -60,6 +59,18 @@ class Main {
         this.deckManager.updateDeck(value);
         this.deckRenderer.drawDeck(this.deckManager.getDeck());
         this.Tost("Deck actualizado!", "blue");
+    }
+
+    downloadDeckInTxt(target) {
+        let deckName = document.getElementById('deckName').value;
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(document.querySelector('.sideMenu textarea').value));
+        element.setAttribute('download', deckName || "Mazo.txt");
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+        this.Tost("Deck descargado!", "blue");
     }
 
     Tost(msg, color = "green") {

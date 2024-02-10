@@ -7,7 +7,8 @@ class SearchForm {
     }
     
     async searchCard(page = 1) {    
-        console.log('Buscando...', page);    
+        console.log('Buscando...');
+        document.getElementById('cards').innerHTML = '<div class="loader"></div>';
         const search = document.getElementById('name').value;
         const type = document.getElementById('type').value;
         const colors = Array.from(document.querySelectorAll(".submenu input:checked")).map(input => input.value);
@@ -31,6 +32,9 @@ class SearchForm {
         cardsContainer.innerHTML = html;
 
         document.querySelectorAll('.card img').forEach(card => card.addEventListener('click', () => this.deckManager.addCard(card.parentElement.id)));
+        if(data.length == 0) {
+            document.getElementById('cards').innerHTML = '<h2>No se encontraron cartas</h2>';        
+        }
         console.log('Busqueda finalizada: ', data);
         this.deckRenderer.drawDeck(this.deckManager.getDeck());
     }
